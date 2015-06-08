@@ -1,0 +1,24 @@
+{
+  "name": "property",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    ".meteor/local/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-filter": "~0.5.4",
+    "angular-rangeslider": "~0.0.14",
+    "angular-photoswipe": "https://github.com/jsnmgpnty/angular-photoswipe.git",
+    "afkl-lazy-image": "~0.1.0",
+    "angular-nicescroll": "~0.0.2",
+    "ngstorage": "~0.3.4"
+  },
+  "resolutions": {
+    "perfect-scrollbar": "~0.5.1"
+  }
+}
