@@ -11,10 +11,10 @@ angular.module 'propertyApp'
       currentUser: ['$meteor', ($meteor) ->
         $meteor.requireUser()
       ]
-  .state 'lofe-detail',
-    url: '/loves/:lofeId'
-    templateUrl: 'client/loves/lofe-detail.view.html'
-    controller: 'LofeDetailCtrl'
+  .state 'love-detail',
+    url: '/loves/:loveId'
+    templateUrl: 'client/loves/love-detail.view.html'
+    controller: 'LoveDetailCtrl'
     resolve:
       currentUser: ['$meteor', ($meteor) ->
         $meteor.requireUser()

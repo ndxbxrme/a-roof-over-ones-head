@@ -1,0 +1,59 @@
+.loves-list
+  .img 
+    position absolute
+    top 0
+    left 0
+    width 100%
+    
+  .swiping-left
+    animation LEFT 0.6s
+    animation-fill-mode forwards
+    
+  .swiping-right
+    animation RIGHT 0.6s
+    animation-fill-mode forwards
+    
+  .reset
+    opacity 0
+    animation RESET 0.6s
+    animation-delay 0.3s
+    animation-fill-mode forwards
+    
+.lt-1024
+  h1
+    font-size 3rem
+    
+@keyframes LEFT {
+  from {
+    transform: translate(0%, 0%)
+    opacity 1
+    z-index 1
+  }
+  to {
+    transform: translate(-100%, 0%)
+    opacity 0
+  }
+}    
+@keyframes RIGHT {
+  from {
+    transform: translate(0%, 0%)
+    opacity 1
+    z-index 1
+  }
+  to {
+    transform: translate(100%, 0%)
+    opacity 0
+  }
+}
+
+@keyframes RESET {
+  from {
+    transform: scale(0.8)
+    opacity 0
+    z-index 0
+  }
+  to {
+    transform: scale(1.0)
+    opacity 1
+  }
+}

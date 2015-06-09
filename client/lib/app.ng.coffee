@@ -9,6 +9,7 @@ angular.module 'propertyApp', [
   'afkl.lazyImage'
   'angular-nicescroll'
   'ngStorage'
+  'ngTouch'
 ]
 
 onReady = () ->

@@ -1,9 +1,9 @@
 @Loves = new Mongo.Collection('loves')
 
 Loves.allow
-  insert: (userId, lofe) ->
+  insert: (userId, love) ->
     userId
-  update: (userId, lofe, fields, modifier) ->
+  update: (userId, love, fields, modifier) ->
     userId
-  remove: (userId, lofe) ->
+  remove: (userId, love) ->
     userId

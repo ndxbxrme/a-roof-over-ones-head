@@ -8,11 +8,8 @@ angular.module 'propertyApp'
   $scope.hidden = $meteor.collection Hidden
   $meteor.subscribe 'hidden'
   $scope.storage = $localStorage
-  $scope.listings = listings;
-  
-  
-  if $localStorage.area and listings.all().length is 0
-    listings.getAreas()
+  $scope.listings = listings
+  listings.refresh()
     
   $scope.addToFavorites = (listing) ->
     listing.userId = $rootScope.currentUser._id
@@ -41,7 +38,6 @@ angular.module 'propertyApp'
     $scope.getAreas()
     
   $scope.selectListing = (listing) ->
-    console.log listing.title
     listings.selectListing listing
     $scope.$apply()
     return

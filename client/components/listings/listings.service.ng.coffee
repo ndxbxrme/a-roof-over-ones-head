@@ -58,10 +58,7 @@ angular.module 'propertyApp'
         else
           loading = undefined
   
-
-          
-  # Public API
-  getAreas: () ->
+  getAreas = () ->
     minLat = minLon = 1000
     maxLat = maxLon = -1000
     areas = $localStorage.area.split /,/g
@@ -69,6 +66,10 @@ angular.module 'propertyApp'
     selected = undefined
     selectedImage = undefined
     getListings 1, 0
+          
+  # Public API
+  getAreas: () ->
+    getAreas()
   selectListing: (listing) ->
     selected = listing
     map.center = {latitude: listing.latitude, longitude: listing.longitude}
@@ -91,4 +92,7 @@ angular.module 'propertyApp'
     selected
   selectedImage: () ->
     selectedImage
+  refresh: () ->
+    if $localStorage.area and listings.length is 0
+      getAreas()
 ]

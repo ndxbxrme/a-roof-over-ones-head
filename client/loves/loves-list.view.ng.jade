@@ -1,24 +1,33 @@
-.loves-list.container
-  h1 Loves
-  form(ng-submit='save()', name='form', novalidate='')
-    p.input-group
-      input.form-control(type='text', placeholder='Name', ng-model='newLofe.name')
-      span.input-group-btn
-        input.btn.btn-primary(type='submit', value='Add')
-  .panel.panel-default
-    .panel-body
-      .input-group.pull-right.col-md-3.col-sm-12
-        input.form-control(type='search', ng-model='search', placeholder='Search')
-        .dropdown.input-group-btn(dropdown='', on-toggle='toggled(open)')
-          button.btn.btn-primary.dropdown-toggle(dropdown-toggle='') {{ orderProperty==='1' ? 'Ascending' : 'Descending' }}
-            span.caret
-          ul.dropdown-menu(role='menu')
-            li(ng-click="orderProperty='1'") Ascending
-            li(ng-click="orderProperty='-1'") Descending
-      ul.nav.nav-tabs.nav-stacked.col-md-9.col-sm-12
-        li(dir-paginate='lofe in loves | itemsPerPage: perPage', total-items='lovesCount.count')
-          p
-            a(href='/loves/{{lofe._id}}') {{ lofe.name }}
-            button.btn(ng-click='remove(lofe)') &times;
-      dir-pagination-controls.col-md-12(on-page-change='pageChanged(newPageNumber)')
-  p Total number of loves: {{lovesCount.count}}
+.loves-list.container.text-center(style='position:relative; height: 60vh')
+  div(ng-hide='showingResults')
+    h1 Love it or Leave it
+    h4 {{ thing }} {{ showingResults}}
+    h5(style='position:absolute; top:0; right: 10px; color: #fff; background: #000; z-index: 100') {{ validImages.length }}
+    a.btn.btn-primary(ng-click='start()', href='') Start
+    div.img.text-center(ng-swipe-left='swipeLeft(1)', ng-swipe-right='swipeRight(1)', ng-class="{'swiping-left':swipingLeft1,'swiping-right':swipingRight1,'reset':reset1}", ng-show='image1')
+      img(ng-src='{{image1}}', style='max-width: 100%')
+    div.img.text-center(ng-swipe-left='swipeLeft(2)', ng-swipe-right='swipeRight(2)', ng-class="{'swiping-left':swipingLeft2,'swiping-right':swipingRight2,'reset':reset2}", ng-show='image2')
+      img(ng-src='{{image2}}', style='max-width: 100%')
+    //div(ng-repeat='listing in listings.all()') {{listing.title}}
+  div(ng-show='showingResults') {{thing}}
+    .search-listings
+      .col-xs-12.panel.panel-default(ng-repeat="listing in results | unique:'guid' | orderBy:'!score'", ng-hide='listing.score===0')
+        a(name='{{ listing.guid }}')
+        .col-sm-6
+          h4
+            a(href='', ng-click='listings.selectListingAndImage(listing, null)') {{ listing.title }} {{ listing.score }}
+          h5 {{ listing.summary }}
+            a(ng-href='{{listing.lister_url}}', target='_Blank') Website
+        .col-sm-6.text-right   
+          h4 {{ listing.price_formatted }}
+          .btn-group.pull-right(role='group', ng-hide='isFavorite(listing)')
+            button.btn.btn-default.margin-bottom(ng-click='hide(listing)', ng-show='$root.currentUser', type='button') Hide
+            button.btn.btn-primary.margin-bottom(ng-click='addToFavorites(listing)', ng-show='$root.currentUser', type='button') Add to favorites
+          button.btn.btn-disabled.pull-right.margin-bottom(ng-hide='$root.currentUser', type='button') Sign in to favorite
+          h4.pull-right(ng-show='isFavorite(listing)')
+            a(href='favorites') Favorite
+        .col-sm-12
+          .listing.col-sm-2(ng-repeat='pic in listing.pics')
+            img.thumbnail(ng-src='{{pic}}', style='width: 100%', onerror="this.style.display='none'", ng-click='listings.selectListingAndImage(listing, pic)')
+          .listing.col-sm-2
+            img.thumbnail(ng-src='{{ listing.img_url }}', ng-hide='listing.pics.length>0' style='width: 100%', ng-click='listings.selectListingAndPic(listing, img_url)')

@@ -1,34 +1,72 @@
 'use strict'
 
 angular.module 'propertyApp'
-.controller 'LovesListCtrl', ['$scope', '$meteor', ($scope, $meteor) ->
-  $scope.page = 1
-  $scope.perPage = 3
-  $scope.sort = name_sort : 1
-  $scope.orderProperty = '1'
+.controller 'LovesListCtrl', ['$scope', '$meteor', 'listings', '$localStorage', ($scope, $meteor, listings, $localStorage) ->
+  $scope.listings = listings
+  listings.refresh()
   
-  $scope.loves = $meteor.collection () ->
-    Loves.find {}, {sort:$scope.getReactively('sort')}
-  $meteor.autorun $scope, () ->
-    $meteor.subscribe('loves', {
-      limit: parseInt($scope.getReactively('perPage'))
-      skip: parseInt(($scope.getReactively('page') - 1) * $scope.getReactively('perPage'))
-      sort: $scope.getReactively('sort')
-    }, $scope.getReactively('search')).then () ->
-      $scope.lovesCount = $meteor.object Counts, 'numberOfLoves', false
+  if not $localStorage.loved then $localStorage.loved = []
+  if not $localStorage.hated then $localStorage.hated = []
+  
+  $scope.getRandomImage = () ->
+    $scope.validImages = []
+    for listing in listings.all()
+      if listing and listing.pics
+        for pic in listing.pics
+          if $localStorage.loved.indexOf(pic) is -1 and $localStorage.hated.indexOf(pic) is -1
+            $scope.validImages.push pic
+    if $scope.validImages.length is 0 then return $scope.goToResults()
+    $scope.validImages[Math.floor(Math.random() * $scope.validImages.length)]
     
-  $scope.save = () ->
-    if $scope.form.$valid
-      $scope.loves.save $scope.newLofe
-      $scope.newLofe = undefined
+  $scope.goToResults = () ->
+    $scope.results = []
+    $scope.showingResults = true
+    for listing in listings.all()
+      listing.score = 0
+      for pic in listing.pics
+        if loved.indexOf(pic) isnt -1
+          listing.score++
+          $scope.thing = Math.random()
+      if listing.score > 0
+        $scope.results.push listing
+    
+  $scope.start = () ->
+    $scope.image1 = $scope.getRandomImage()
+    
+  $scope.swipeLeft = (index) ->
+    $scope.thing = 'batrz' + Math.random()
+    if index is 1
+      $localStorage.hated.push $scope.image1
+      $scope.reset1 = undefined
+      $scope.swipingLeft1 = true
+      $scope.image2 = $scope.getRandomImage()
+      $scope.swipingLeft2 = undefined
+      $scope.swipingRight2 = undefined
+      $scope.reset2 = true
+    else
+      $localStorage.hated.push $scope.image2
+      $scope.reset2 = undefined
+      $scope.swipingLeft2 = true
+      $scope.image1 = $scope.getRandomImage()
+      $scope.swipingLeft1 = undefined
+      $scope.swipingRight1 = undefined
+      $scope.reset1 = true
       
-  $scope.remove = (lofe) ->
-    $scope.loves.remove lofe
-    
-  $scope.pageChanged = (newPage) ->
-    $scope.page = newPage
-    
-  $scope.$watch 'orderProperty', () ->
-    if $scope.orderProperty
-      $scope.sort = name_sort: parseInt($scope.orderProperty)
+  $scope.swipeRight = (index) ->
+    if index is 1
+      $localStorage.loved.push $scope.image1
+      $scope.reset1 = undefined
+      $scope.swipingRight1 = true
+      $scope.image2 = $scope.getRandomImage()
+      $scope.swipingRight2 = undefined
+      $scope.swipingLeft2 = undefined
+      $scope.reset2 = true
+    else
+      $localStorage.loved.push $scope.image2
+      $scope.reset2 = undefined
+      $scope.swipingRight2 = true
+      $scope.image1 = $scope.getRandomImage()
+      $scope.swipingRight1 = undefined
+      $scope.swipingLeft1 = undefined
+      $scope.reset1 = true
 ]

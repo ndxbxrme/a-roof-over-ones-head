@@ -24,7 +24,7 @@
       button.btn.btn-disabled.pull-right.margin-bottom(ng-hide='$root.currentUser') Sign in to favorite
       h4.pull-right(ng-show='isFavorite(listings.selectedListing())')
         a(href='favorites') Favorite
-    .listing.col-sm-6(ng-repeat='pic in listings.selectedListing().pics')
+    .listing.col-xs-6(ng-repeat='pic in listings.selectedListing().pics')
       img.thumbnail(ng-src='{{pic}}', style='width: 100%', onerror="this.style.display='none'", ng-click="listings.selectImage(pic)")
   .col-sm-4.greyed-out(ng-hide='listings.selectedListing()')
     div(ng-show='listings.all().length>0')
@@ -62,11 +62,8 @@
         button.btn.btn-disabled.pull-right.margin-bottom(ng-hide='$root.currentUser', type='button') Sign in to favorite
         h4.pull-right(ng-show='isFavorite(listing)')
           a(href='favorites') Favorite
-      .col-sm-12
-        .listing.col-sm-2(ng-repeat='pic in listing.pics')
-          //.afkl-lazy-wrapper.afkl-img-ratio-1-1.thumbnail(afkl-lazy-image='{{pic}}', ng-click='selectListingAndImage(listing, pic)')
-          img.thumbnail(ng-src='{{pic}}', style='width: 100%', onerror="this.style.display='none'", ng-click='listings.selectListingAndImage(listing, pic)')
+      .col-sm-12(style='clear:both')
+        .listing.col-xs-12.col-sm-4.col-md-3.col-lg-2.text-center(ng-repeat='pic in listing.pics')
+          img.thumbnail(ng-src='{{pic}}', style='height: 12rem; max-width: 100%', onerror="this.style.display='none'", ng-click='listings.selectListingAndImage(listing, pic)')
         .listing.col-sm-2
           img.thumbnail(ng-src='{{ listing.img_url }}', ng-hide='listing.pics.length>0' style='width: 100%', ng-click='listings.selectListingAndPic(listing, img_url)')
-      //a(ng-click='getImages(listing)')
-        img(ng-src='{{listing.img_url}}', style='width: 100%')

@@ -8,5 +8,5 @@ Meteor.startup ->
         'name': 'lofe 2'
       }
     ]
-    loves.forEach (lofe) ->
-      Loves.insert lofe
+    loves.forEach (love) ->
+      Loves.insert love
