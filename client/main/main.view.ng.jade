@@ -30,7 +30,7 @@
     div(ng-show='listings.all().length>0')
       h4.col-xs-12.no-margin Click an image on the map
       h5.col-xs-12 and the selected property will show here
-      .listing.col-sm-6(ng-repeat='pic in [1,2,3,4]')
+      .listing.col-xs-6(ng-repeat='pic in [1,2,3,4]')
         img.thumbnail(ng-src='http://placehold.it/160x123?text=Image', style='width: 100%')
     div(ng-hide="listings.all().length>0 || response.application_response_code==='202'")
       h4.col-xs-12.no-margin Search for an area to get started
@@ -63,7 +63,7 @@
         h4.pull-right(ng-show='isFavorite(listing)')
           a(href='favorites') Favorite
       .col-sm-12(style='clear:both')
-        .listing.col-xs-12.col-sm-4.col-md-3.col-lg-2.text-center(ng-repeat='pic in listing.pics')
+        .listing.col-xs-6.col-sm-4.col-md-3.col-lg-2.text-center(ng-repeat='pic in listing.pics')
           img.thumbnail(ng-src='{{pic}}', style='height: 12rem; max-width: 100%', onerror="this.style.display='none'", ng-click='listings.selectListingAndImage(listing, pic)')
         .listing.col-sm-2
           img.thumbnail(ng-src='{{ listing.img_url }}', ng-hide='listing.pics.length>0' style='width: 100%', ng-click='listings.selectListingAndPic(listing, img_url)')
