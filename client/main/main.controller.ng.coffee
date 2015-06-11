@@ -10,7 +10,7 @@ angular.module 'propertyApp'
   $scope.storage = $localStorage
   $scope.listings = listings
   
-  if not $localStorage.sort then $localStorage.sort = 'price'
+  if not $localStorage.sort or $localStorage.sort is '-dateFavorited' then $localStorage.sort = 'price'
   if not $localStorage.listing_type then $localStorage.listing_type = 'buy'
   
   listings.refresh()
@@ -21,6 +21,7 @@ angular.module 'propertyApp'
     
   $scope.addToFavorites = (listing) ->
     listing.userId = $rootScope.currentUser._id
+    listing.dateFavorited = new Date()
     $scope.favorites.save _.omit(listing, '$$hashKey')
   
   $scope.isFavorite = (listing) ->

@@ -8,6 +8,7 @@
             span(ng-show="storage.sort==='price'") Cheapest first&nbsp;
             span(ng-show="storage.sort==='-price'") Most expensive first&nbsp;
             span(ng-show="storage.sort==='location_accuracy'") Relevance&nbsp;
+            span(ng-show="storage.sort==='-dateFavorited'") Date favorited&nbsp;
             span.caret
           ul.dropdown-menu(role='menu')
             li 
@@ -16,6 +17,8 @@
               a(href='', ng-click="storage.sort='-price'") Most expensive first
             li 
               a(href='', ng-click="storage.sort='location_accuracy'") Relevance
+            li
+              a(href='', ng-click="storage.sort='-dateFavorited'") Date favorited
         .btn-group
           label.btn.btn-primary(ng-model='storage.favorite_type', btn-radio="'buy'", ng-click='reload()') Buy
           label.btn.btn-primary(ng-model='storage.favorite_type', btn-radio="'let'", ng-click='reload()') Rent
