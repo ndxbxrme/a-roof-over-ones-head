@@ -10,6 +10,9 @@ angular.module 'propertyApp'
   $scope.storage = $localStorage
   $scope.listings = listings
   listings.refresh()
+  
+  if not $localStorage.sort
+    $localStorage.sort = 'price'
     
   $scope.addToFavorites = (listing) ->
     listing.userId = $rootScope.currentUser._id

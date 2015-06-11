@@ -14,7 +14,7 @@
       a.close-btn(href='') &times;
     ui-gmap-google-map(center='listings.map().center', zoom='listings.map().zoom', bounds='listings.map().bounds', ng-hide='listings.selectedImage()')
       ui-gmap-marker(idKey='listings.selectedListing().guid', coords='listings.selectedListing()', ng-if='listings.selectedListing()')
-      ui-gmap-marker(ng-repeat="listing in listings.all() | unique:'guid' | inPriceRange:priceRange", idKey='listing.lister_url', coords='listing', icon='{url:listing.thumb_url}', options="{title:listing.title + ': ' + listing.price_formatted, class:'icon'}", click='selectListing(listing)', ng-if='!isHidden(listing)')
+      ui-gmap-marker(ng-repeat="listing in listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter", idKey='listing.lister_url', coords='listing', icon='{url:listing.thumb_url}', options="{title:listing.title + ': ' + listing.price_formatted, class:'icon'}", click='selectListing(listing)', ng-if='!isHidden(listing)')
   .selected-property.scroller.col-sm-4(ng-nicescroll='', ng-show='listings.selectedListing()')
     h4.col-xs-12.no-margin {{ listings.selectedListing().title }} - &nbsp;
       a(ng-href='{{listings.selectedListing().lister_url}}', target='_Blank') Website
@@ -47,7 +47,24 @@
     h4.text-center(ng-show='loading') Loading properties...&nbsp;&nbsp;
       i.fa.fa-spinner.fa-spin
   .search-listings
-    .col-xs-12.panel.panel-default(ng-repeat="listing in listings.all() | unique:'guid' | inPriceRange:priceRange | orderBy:'price'", ng-hide='isHidden(listing)')
+    .row
+      .col-sm-6.margin-bottom
+        .btn-group(dropdown='', is-open='status.isopen')
+          button.btn.btn-primary.dropdown-toggle(dropdown-toggle='') 
+            span(ng-show="storage.sort==='price'") Cheapest first&nbsp;
+            span(ng-show="storage.sort==='-price'") Most expensive first&nbsp;
+            span(ng-show="storage.sort==='location_accuracy'") Relevance&nbsp;
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li 
+              a(href='', ng-click="storage.sort='price'") Cheapest first
+            li 
+              a(href='', ng-click="storage.sort='-price'") Most expensive first
+            li 
+              a(href='', ng-click="storage.sort='location_accuracy'") Relevance
+      .col-sm-6.margin-bottom
+        input.form-control(type='text', ng-model='filter', placeholder='Search within results')
+    .col-xs-12.panel.panel-default(ng-repeat="listing in listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter | orderBy:storage.sort", ng-hide='isHidden(listing)')
       a(name='{{ listing.guid }}')
       .col-sm-6
         h4

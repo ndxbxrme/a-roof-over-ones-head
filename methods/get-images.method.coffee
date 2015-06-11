@@ -28,6 +28,8 @@ Meteor.methods
             if not m
               m = data.content.match(/src=".*home[^"]+jpg"/g)
             if not m
+              m = data.content.match(/u="image" src="[^"]+"/g)
+            if not m
               future['return'] data.content
             else
               pics = []

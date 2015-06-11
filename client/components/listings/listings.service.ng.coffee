@@ -34,6 +34,7 @@ angular.module 'propertyApp'
     loading = true
     Meteor.call 'searchListings', areas[areaIndex], page, (err, data) ->
       response = data.data.response
+      console.log response
       if ['100', '110', '101'].indexOf(data.data.response.application_response_code) isnt -1
         startIndex = listings.length
         if page is 1
