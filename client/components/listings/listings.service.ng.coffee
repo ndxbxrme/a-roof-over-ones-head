@@ -37,7 +37,6 @@ angular.module 'propertyApp'
     Meteor.call 'searchListings', areas[areaIndex], $localStorage.listing_type, page, (err, data) ->
       calling = undefined
       response = data.data.response
-      console.log response
       if ['100', '110', '101'].indexOf(data.data.response.application_response_code) isnt -1
         if cancel
           cancel = undefined
@@ -53,7 +52,6 @@ angular.module 'propertyApp'
             northeast: {latitude: maxLat, longitude: maxLon}
             southwest: {latitude: minLat, longitude: minLon} 
         for listing in data.data.response.listings
-          console.log 'pushing'
           listings.push listing
         getAllImages startIndex
         if page < parseInt(data.data.response.total_pages)
