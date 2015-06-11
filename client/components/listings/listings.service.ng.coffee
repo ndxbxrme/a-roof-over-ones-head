@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'propertyApp'
-.factory 'listings', ['$localStorage', '$timeout', ($localStorage, $timeout) ->
+.factory 'listings', ['$localStorage', '$timeout', '$window', ($localStorage, $timeout, $window) ->
   
   minLat = minLon = 1000
   maxLat = maxLon = -1000
@@ -83,6 +83,7 @@ angular.module 'propertyApp'
     selectedImage = url
     map.center = {latitude: listing.latitude, longitude: listing.longitude}
     map.zoom = 16
+    $window.scrollTo 0, 0
   all: () ->
     listings
   loading: () ->
