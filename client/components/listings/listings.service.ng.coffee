@@ -41,18 +41,20 @@ angular.module 'propertyApp'
       if ['100', '110', '101'].indexOf(data.data.response.application_response_code) isnt -1
         if cancel
           cancel = undefined
-          if cancelCallback then cancelCallback()
+          if cancelCallback then return cancelCallback()
         startIndex = listings.length
-        if page is 1
+        if page + '' is '1'
           for listing in data.data.response.listings
             if listing.latitude < minLat then minLat = listing.latitude
             if listing.latitude > maxLat then maxLat = listing.latitude
             if listing.longitude < minLon then minLon = listing.longitude
             if listing.longitude > maxLon then maxLon = listing.longitude
-            listings.push listing
           map.bounds =
             northeast: {latitude: maxLat, longitude: maxLon}
             southwest: {latitude: minLat, longitude: minLon} 
+        for listing in data.data.response.listings
+          console.log 'pushing'
+          listings.push listing
         getAllImages startIndex
         if page < parseInt(data.data.response.total_pages)
           $timeout () ->

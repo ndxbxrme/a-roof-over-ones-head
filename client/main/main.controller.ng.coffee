@@ -17,6 +17,7 @@ angular.module 'propertyApp'
   
   $scope.reload = () ->
     $timeout () ->
+      if ['rent','share'].indexOf($localStorage.listing_type)!==-1 then $scope.priceRange.min = 0
       listings.reload()
     
   $scope.addToFavorites = (listing) ->
