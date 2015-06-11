@@ -1,7 +1,29 @@
 .favorites-list.container
   h1 Favorites
-  .search-listings
-    .col-xs-12.panel.panel-default(ng-repeat="listing in favorites | unique:'guid'")
+  .search-listings(ng-show='favorites.length > 0')
+    .row
+      .col-sm-6.margin-bottom
+        .btn-group(dropdown='', is-open='status.isopen')
+          button.btn.btn-primary.dropdown-toggle(dropdown-toggle='') 
+            span(ng-show="storage.sort==='price'") Cheapest first&nbsp;
+            span(ng-show="storage.sort==='-price'") Most expensive first&nbsp;
+            span(ng-show="storage.sort==='location_accuracy'") Relevance&nbsp;
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li 
+              a(href='', ng-click="storage.sort='price'") Cheapest first
+            li 
+              a(href='', ng-click="storage.sort='-price'") Most expensive first
+            li 
+              a(href='', ng-click="storage.sort='location_accuracy'") Relevance
+        .btn-group
+          label.btn.btn-primary(ng-model='storage.favorite_type', btn-radio="'buy'", ng-click='reload()') Buy
+          label.btn.btn-primary(ng-model='storage.favorite_type', btn-radio="'let'", ng-click='reload()') Rent
+          label.btn.btn-primary(ng-model='storage.favorite_type', btn-radio="'share'", ng-click='reload()') Share
+          label.btn.btn-primary(ng-model='storage.favorite_type', btn-radio="''", ng-click='reload()') All
+      .col-sm-6.margin-bottom
+        input.form-control(type='text', ng-model='filter', placeholder='Search within results')
+    .col-xs-12.panel.panel-default(ng-repeat="listing in favorites | unique:'guid' | filter:filter | orderBy:storage.sort | filter:{listing_type:storage.favorite_type}")
       a(name='{{ listing.guid }}')
       .col-sm-6
         h4

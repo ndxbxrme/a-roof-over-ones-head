@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'propertyApp'
-.controller 'MainCtrl', ['$scope', '$meteor', '$rootScope', '$localStorage', 'listings', ($scope, $meteor, $rootScope, $localStorage, listings) ->
+.controller 'MainCtrl', ['$scope', '$meteor', '$rootScope', '$localStorage', 'listings', '$timeout', ($scope, $meteor, $rootScope, $localStorage, listings, $timeout) ->
   $scope.priceRange = min: 10, max: 70
   $scope.favorites = $meteor.collection Favorites
   $meteor.subscribe 'favorites'
@@ -9,10 +9,15 @@ angular.module 'propertyApp'
   $meteor.subscribe 'hidden'
   $scope.storage = $localStorage
   $scope.listings = listings
+  
+  if not $localStorage.sort then $localStorage.sort = 'price'
+  if not $localStorage.listing_type then $localStorage.listing_type = 'buy'
+  
   listings.refresh()
   
-  if not $localStorage.sort
-    $localStorage.sort = 'price'
+  $scope.reload = () ->
+    $timeout () ->
+      listings.reload()
     
   $scope.addToFavorites = (listing) ->
     listing.userId = $rootScope.currentUser._id

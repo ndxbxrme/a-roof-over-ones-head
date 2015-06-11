@@ -11,6 +11,7 @@ angular.module 'propertyApp'
   selectedImage = undefined
   loading = undefined
   response = undefined
+  calling = undefined
   map = 
     center: { latitude: 53.38, longitude: -1.46 }
     zoom: 16
@@ -32,10 +33,15 @@ angular.module 'propertyApp'
   
   getListings = (page, areaIndex) ->
     loading = true
-    Meteor.call 'searchListings', areas[areaIndex], page, (err, data) ->
+    calling = true
+    Meteor.call 'searchListings', areas[areaIndex], $localStorage.listing_type, page, (err, data) ->
+      calling = undefined
       response = data.data.response
       console.log response
       if ['100', '110', '101'].indexOf(data.data.response.application_response_code) isnt -1
+        if cancel
+          cancel = undefined
+          if cancelCallback then cancelCallback()
         startIndex = listings.length
         if page is 1
           for listing in data.data.response.listings
@@ -58,6 +64,8 @@ angular.module 'propertyApp'
           , 1000
         else
           loading = undefined
+      else
+        loding = undefined
   
   getAreas = () ->
     minLat = minLon = 1000
@@ -97,4 +105,11 @@ angular.module 'propertyApp'
   refresh: () ->
     if $localStorage.area and listings.length is 0
       getAreas()
+  reload: () ->
+    if $localStorage.area
+      if calling
+        cancel = true
+        cancelCallback = getAreas
+      else
+        getAreas()
 ]
