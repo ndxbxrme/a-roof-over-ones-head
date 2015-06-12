@@ -12,6 +12,7 @@ angular.module 'propertyApp'
   
   if not $localStorage.sort or $localStorage.sort is '-dateFavorited' then $localStorage.sort = 'price'
   if not $localStorage.listing_type then $localStorage.listing_type = 'buy'
+  if $localStorage.listing_type is 'rent' then $scope.priceRange.min = 0
   
   listings.refresh()
   

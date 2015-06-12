@@ -48,9 +48,9 @@
       i.fa.fa-spinner.fa-spin
   .search-listings
     .row
-      .col-sm-6.margin-bottom
+      .col-sm-6
         .btn-group(dropdown='', is-open='status.isopen')
-          button.btn.btn-primary.dropdown-toggle(dropdown-toggle='', ng-show='listings.all().length>0') 
+          button.btn.btn-primary.dropdown-toggle.margin-bottom(dropdown-toggle='', ng-show='listings.all().length>0') 
             span(ng-show="storage.sort==='price'") Cheapest first&nbsp;
             span(ng-show="storage.sort==='-price'") Most expensive first&nbsp;
             span(ng-show="storage.sort==='location_accuracy'") Relevance&nbsp;
@@ -62,12 +62,12 @@
               a(href='', ng-click="storage.sort='-price'") Most expensive first
             li 
               a(href='', ng-click="storage.sort='location_accuracy'") Relevance
-        .btn-group
+        .btn-group.margin-bottom
           label.btn.btn-primary(ng-model='storage.listing_type', btn-radio="'buy'", ng-click='reload()') Buy
           label.btn.btn-primary(ng-model='storage.listing_type', btn-radio="'rent'", ng-click='reload()') Rent
           label.btn.btn-primary(ng-model='storage.listing_type', btn-radio="'share'", ng-click='reload()') Share
-      .col-sm-6.margin-bottom
-        input.form-control(type='text', ng-model='filter', placeholder='Search within results', ng-show='listings.all().length>0')
+      .col-sm-6
+        input.form-control.margin-bottom(type='text', ng-model='filter', placeholder='Search within results', ng-show='listings.all().length>0')
     .col-xs-12.panel.panel-default(ng-repeat="listing in listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter | orderBy:storage.sort", ng-hide='isHidden(listing)')
       a(name='{{ listing.guid }}')
       .col-sm-6
