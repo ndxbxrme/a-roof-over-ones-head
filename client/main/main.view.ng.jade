@@ -124,5 +124,6 @@
         .col-xs-12.col-sm-3(ng-repeat='listing in featured')
           a.panel(ng-href='{{listing.lister_url}}')
             h4 {{listing.title}}
+            h4.secondary {{ listing.price_formatted }}
             img.thumbnail(ng-src='{{ listing.img_url }}', style='width: 90%', ng-click='listings.selectListingAndPic(listing, img_url)')
             p.margin-top {{ listing.summary }}
