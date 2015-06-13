@@ -80,6 +80,7 @@ angular.module 'propertyApp'
   getAreas: () ->
     getAreas()
   selectListing: (listing) ->
+    Meteor.call 'addFeatured', listing
     selected = listing
     map.center = {latitude: listing.latitude, longitude: listing.longitude}
     map.zoom = 16
@@ -87,6 +88,7 @@ angular.module 'propertyApp'
   selectImage: (url) ->
     selectedImage = url
   selectListingAndImage: (listing, url) ->
+    Meteor.call 'addFeatured', listing
     selected = listing
     selectedImage = url
     map.center = {latitude: listing.latitude, longitude: listing.longitude}

@@ -7,6 +7,8 @@ angular.module 'propertyApp'
   $meteor.subscribe 'favorites'
   $scope.hidden = $meteor.collection Hidden
   $meteor.subscribe 'hidden'
+  $scope.featured = $meteor.collection Featured
+  $meteor.subscribe 'featured'
   $scope.storage = $localStorage
   $scope.listings = listings
   

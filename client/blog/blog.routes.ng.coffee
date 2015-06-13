@@ -2,6 +2,7 @@
 
 angular.module 'propertyApp'
 .config ['$stateProvider', ($stateProvider) ->
+  ###
   $stateProvider
   .state 'blog-list',
     url: '/blog'
@@ -11,4 +12,5 @@ angular.module 'propertyApp'
     url: '/blog/:blogId'
     templateUrl: 'client/blog/blog-detail.view.html'
     controller: 'BlogDetailCtrl'
+  ###
 ]
