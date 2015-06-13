@@ -10,6 +10,8 @@
       
     .navbar-main.navbar-collapse.collapse(collapse='!isCollapsed')
       ul.nav.navbar-nav.navbar-right
+        li.f32(style='margin-top: 6px')
+          ul.flag.gb
         li(ng-show='$root.currentUser')
           a(href='/favorites') Favorites
         li
