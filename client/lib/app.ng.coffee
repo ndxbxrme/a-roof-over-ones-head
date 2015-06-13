@@ -10,6 +10,8 @@ angular.module 'propertyApp', [
   'angular-nicescroll'
   'ngStorage'
   'ngTouch'
+  'ngTagsInput'
+  'wu.masonry'
 ]
 
 onReady = () ->

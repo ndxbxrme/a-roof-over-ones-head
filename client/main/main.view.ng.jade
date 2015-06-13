@@ -41,7 +41,8 @@
           h5.col-xs-12 and the selected property will show here
           .listing.col-xs-6(ng-repeat='pic in [1,2,3,4]')
             img.thumbnail(ng-src='http://placehold.it/160x123?text=Image', style='width: 100%')
-        div(ng-hide="listings.all().length>0 || response.application_response_code==='202'")
+      div(ng-hide="listings.all().length>0 || response.application_response_code==='202'")
+        .row
           h4.col-xs-12.no-margin.secondary Search for an area to get started
           p.col-xs-12 Browse UK properites quickly and simply.
           p.col-xs-12 Enter a comma seperated list of the areas you are interested in then use the price slider above to narrow down the results.
@@ -100,22 +101,22 @@
     .container.text-center
       h1 a Roof Over One's Head
       h3 is a great place to find your next house, or just to browse for inspiration
-      //.row
+      .row
         .col-sm-4.margin-top
           .panel
             h4 Save Favorites
-            img(src='http://placehold.it/300x200', style='max-width: 90%')
+            img(src='images/59_1.jpg', style='max-width: 90%')
             p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') When you find the house of your dreams you can save it to view later
         .col-sm-4.margin-top
           .panel
             h4 Love Images
-            img(src='http://placehold.it/300x200', style='max-width: 90%')
-            p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') When you find the house of your dreams you can save it to view later
+            img(src='images/83_1.jpg', style='max-width: 90%')
+            p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') Love and organize images for house hunting or for design inspiration
         .col-sm-4.margin-top
           .panel
             h4 Share with Friends
-            img(src='http://placehold.it/300x200', style='max-width: 90%')
-            p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') When you find the house of your dreams you can save it to view later
+            img(src='images/57_1.jpg', style='max-width: 90%')
+            p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') Share and save your collections of houses and images
   section
     .container
       h4.secondary.text-center Featured listings

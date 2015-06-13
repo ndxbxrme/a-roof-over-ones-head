@@ -1,0 +1,16 @@
+.board-property
+  .container
+    .row
+      .col-sm-6 
+        h1.no-margin {{tag}}
+      .col-sm-6.text-right(ng-show='isOwner()')
+        h4 Sharing Url
+        input.text-right.form-control(value='{{url}}board/p/{{userId}}/{{tag}}', style='width: 100%; border: none; padding-right: 0', ng-click='selectAll($event)')
+    .row.margin-top(masonry='')
+      div.col-sm-3.masonry-brick(ng-repeat='listing in favorites') 
+        h4 {{ listing.title }}
+        h4.secondary.text-right {{ listing.price_formatted }}
+        div.img-div(style='position: relative')
+          img(ng-src='{{ listing.img_url }}', style='width:100%')
+          a.close(href='', ng-show='isOwner()', ng-click='remove(listing)') &times;
+        h5 {{ listing.summary }}

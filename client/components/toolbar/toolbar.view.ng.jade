@@ -11,7 +11,7 @@
     .navbar-main.navbar-collapse.collapse(collapse='!isCollapsed')
       ul.nav.navbar-nav.navbar-right
         li.f32
-          span.flag.gb
+          span.flag.gb(popover='More regions coming soon', popover-placement='bottom', popover-trigger='mouseenter')
         li(ng-show='$root.currentUser')
           a(href='/favorites') Favorites
         li

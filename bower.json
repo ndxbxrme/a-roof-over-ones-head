@@ -15,11 +15,10 @@
     "angular-rangeslider": "~0.0.14",
     "angular-photoswipe": "https://github.com/jsnmgpnty/angular-photoswipe.git",
     "afkl-lazy-image": "~0.1.0",
-    "angular-nicescroll": "~0.0.2",
     "ngstorage": "~0.3.4",
-    "headjs": "~1.0.3"
-  },
-  "resolutions": {
-    "perfect-scrollbar": "~0.5.1"
+    "headjs": "~1.0.3",
+    "masonry": "~3.1.2",
+    "angular-masonry": "~0.11.0",
+    "angular-nicescroll": "~0.0.3"
   }
 }

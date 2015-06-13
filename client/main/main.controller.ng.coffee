@@ -10,6 +10,8 @@ angular.module 'propertyApp'
   $scope.featured = $meteor.collection Featured
   $meteor.subscribe 'featured'
   $scope.storage = $localStorage
+  
+  if not $localStorage.area then listings.selectListing undefined
   $scope.listings = listings
   
   if not $localStorage.sort or $localStorage.sort is '-dateFavorited' then $localStorage.sort = 'price'
