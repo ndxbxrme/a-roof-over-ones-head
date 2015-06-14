@@ -96,7 +96,7 @@
             img.thumbnail(ng-src='{{pic}}', style='height: 12rem; max-width: 100%', onerror="this.style.display='none'", ng-click='listings.selectListingAndImage(listing, pic)')
           .listing.col-sm-2
             img.thumbnail(ng-src='{{ listing.img_url }}', ng-hide='listing.pics.length>0' style='width: 100%', ng-click='listings.selectListingAndPic(listing, img_url)')
-.container.text-center.hidden-sm(ng-include="'client/components/tradedoubler/tradedoubler.html'")
+.container.hidden-sm(ng-include="'client/components/tradedoubler/tradedoubler.html'")
 .frontpage(ng-hide='listings.all().length>0')
   section.light-bg
     .container.text-center
