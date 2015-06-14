@@ -24,7 +24,7 @@ Meteor.methods
             if not m
               m = data.content.match(/src="[^"]+" data-thumb=/g)
             if not m
-              m = data.content.match(/content=".*listing_images[^"]+"/g)
+              m = data.content.match(/content=".*listing_images[^"]+jpg"/g)
             if not m
               m = data.content.match(/src=".*home[^"]+jpg"/g)
             if not m
