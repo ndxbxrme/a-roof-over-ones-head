@@ -12,6 +12,7 @@ angular.module 'propertyApp', [
   'ngTouch'
   'ngTagsInput'
   'wu.masonry'
+  'smoothScroll'
 ]
 
 onReady = () ->

@@ -1,4 +1,4 @@
-.search-listings.light-bg(ng-show='listings.all().length>0')
+#listings-top.search-listings.light-bg(ng-show='listings.all().length>0')
   .container
     .row
       .col-sm-6
@@ -17,7 +17,9 @@
               a(href='', ng-click="storage.sort='location_accuracy'") Relevance
       .col-sm-6
         input.form-control.margin-bottom(type='text', ng-model='filter', placeholder='Search within results')
-    .col-xs-12.panel.panel-default(ng-repeat="listing in listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter | orderBy:storage.sort", ng-hide='isHidden(listing)')
+    .col-xs-12
+      p Showing listings {{ (page * itemsPerPage) + 1 }} - {{min( (page+1) * itemsPerPage, (listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter).length)}} of {{ (listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter).length }} ({{ (listings.all() | unique:'guid').length }} total)
+    .col-xs-12.panel.panel-default(dir-paginate="listing in listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter | orderBy:storage.sort | itemsPerPage: 20", ng-hide='isHidden(listing)')
       a(name='{{ listing.guid }}')
       .col-sm-6
         h4
@@ -39,3 +41,5 @@
             //img.thumbnail(ng-src='{{pic}}', style='height: 12rem; max-width: 100%', onerror="this.style.display='none'", ng-click='listings.selectListingAndImage(listing, pic)')
           .listing.col-sm-2
             img.thumbnail(ng-src='{{ listing.img_url }}', ng-hide='listing.pics.length>0' style='width: 100%', ng-click='listings.selectListingAndPic(listing, img_url)')
+    .col-xs-12
+      dir-pagination-controls(on-page-change='pageChanged(newPageNumber)')
