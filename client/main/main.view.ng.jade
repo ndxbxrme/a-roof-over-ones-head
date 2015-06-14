@@ -22,109 +22,11 @@
       ui-gmap-google-map(center='listings.map().center', zoom='listings.map().zoom', bounds='listings.map().bounds', ng-hide='listings.selectedImage()')
         ui-gmap-marker(idKey='listings.selectedListing().guid', coords='listings.selectedListing()', ng-if='listings.selectedListing()')
         ui-gmap-marker(ng-repeat="listing in listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter", idKey='listing.lister_url', coords='listing', icon='{url:listing.thumb_url}', options="{title:listing.title + ': ' + listing.price_formatted, class:'icon'}", click='selectListing(listing)', ng-if='!isHidden(listing)')
-    .selected-property.scroller.col-sm-4(ng-nicescroll='', ng-show='listings.selectedListing()')
-      .row
-        h4.col-xs-12.no-margin {{ listings.selectedListing().title }} - &nbsp;
-          a(ng-href='{{listings.selectedListing().lister_url}}', target='_Blank') Website
-        .col-xs-12
-          h5.pull-left {{ listings.selectedListing().price_formatted }}
-          button.btn.btn-primary.pull-right.margin-bottom(ng-click='addToFavorites(listings.selectedListing())', ng-show='$root.currentUser && !isFavorite(listings.selectedListing())') Add to favorites
-          button.btn.btn-disabled.pull-right.margin-bottom(ng-hide='$root.currentUser') Sign in to favorite
-          h4.pull-right(ng-show='isFavorite(listings.selectedListing())')
-            a(href='favorites') Favorite
-        .listing.col-xs-6(ng-repeat='pic in listings.selectedListing().pics')
-          img.thumbnail(ng-src='{{pic}}', style='height: 12rem; max-width: 100%', onerror="this.style.display='none'", ng-click="listings.selectImage(pic)")
-    .col-sm-4.greyed-out(ng-hide='listings.selectedListing()')
-      div(ng-show='listings.all().length>0')
-        .row
-          h4.col-xs-12.no-margin Click an image on the map
-          h5.col-xs-12 and the selected property will show here
-          .listing.col-xs-6(ng-repeat='pic in [1,2,3,4]')
-            img.thumbnail(ng-src='http://placehold.it/160x123?text=Image', style='width: 100%')
-      div(ng-hide="listings.all().length>0 || response.application_response_code==='202'")
-        .row
-          h4.col-xs-12.no-margin.secondary Search for an area to get started
-          p.col-xs-12 Browse UK properites quickly and simply.
-          p.col-xs-12 Enter a comma seperated list of the areas you are interested in then use the price slider above to narrow down the results.
-          p.col-xs-12 Sign in to save favorites.
-        div(ng-show="listings.response().application_response_code==='202'")
-          h4.no-margin Area not found
-          h5 Did you mean...?
-          div(ng-repeat='location in listings.response().locations')
-            h4 
-              a(href='', ng-click='searchFor(location.place_name)') {{ location.long_title }}
+    selected-property
     .col-sm-4
       h4.text-center(ng-show='listings.loading()') Loading properties...&nbsp;&nbsp;
         i.fa.fa-spinner.fa-spin
-.search-listings.light-bg(ng-show='listings.all().length>0')
-  .container
-    .row
-      .col-sm-6
-        .btn-group(dropdown='', is-open='status.isopen')
-          button.btn.btn-primary.dropdown-toggle.margin-bottom(dropdown-toggle='') 
-            span(ng-show="storage.sort==='price'") Cheapest first&nbsp;
-            span(ng-show="storage.sort==='-price'") Most expensive first&nbsp;
-            span(ng-show="storage.sort==='location_accuracy'") Relevance&nbsp;
-            span.caret
-          ul.dropdown-menu(role='menu')
-            li 
-              a(href='', ng-click="storage.sort='price'") Cheapest first
-            li 
-              a(href='', ng-click="storage.sort='-price'") Most expensive first
-            li 
-              a(href='', ng-click="storage.sort='location_accuracy'") Relevance
-      .col-sm-6
-        input.form-control.margin-bottom(type='text', ng-model='filter', placeholder='Search within results')
-    .col-xs-12.panel.panel-default(ng-repeat="listing in listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter | orderBy:storage.sort", ng-hide='isHidden(listing)')
-      a(name='{{ listing.guid }}')
-      .col-sm-6
-        h4
-          a(href='', ng-click='listings.selectListingAndImage(listing, null)') {{ listing.title }}
-        h5 {{ listing.summary }}
-          a(ng-href='{{listing.lister_url}}', target='_Blank') Website
-      .col-sm-6.text-right   
-        h4 {{ listing.price_formatted }}
-        .btn-group.pull-right(role='group', ng-hide='isFavorite(listing)')
-          button.btn.btn-default.margin-bottom(ng-click='hide(listing)', ng-show='$root.currentUser', type='button') Hide
-          button.btn.btn-primary.margin-bottom(ng-click='addToFavorites(listing)', ng-show='$root.currentUser', type='button') Add to favorites
-        button.btn.btn-disabled.pull-right.margin-bottom(ng-hide='$root.currentUser', type='button') Sign in to favorite
-        h4.pull-right(ng-show='isFavorite(listing)')
-          a(href='favorites') Favorite
-      .row
-        .col-sm-12(style='clear:both')
-          .listing.col-xs-6.col-sm-4.col-md-3.col-lg-2.text-center(ng-repeat='pic in listing.pics')
-            img.thumbnail(ng-src='{{pic}}', style='height: 12rem; max-width: 100%', onerror="this.style.display='none'", ng-click='listings.selectListingAndImage(listing, pic)')
-          .listing.col-sm-2
-            img.thumbnail(ng-src='{{ listing.img_url }}', ng-hide='listing.pics.length>0' style='width: 100%', ng-click='listings.selectListingAndPic(listing, img_url)')
 .container.hidden-sm(ng-include="'client/components/tradedoubler/tradedoubler.html'")
-.frontpage(ng-hide='listings.all().length>0')
-  section.light-bg
-    .container.text-center
-      h1 a Roof Over One's Head
-      h3 is a great place to find your next house, or just to browse for inspiration
-      .row
-        .col-sm-4.margin-top
-          .panel
-            h4 Save Favorites
-            img(src='images/59_1.jpg', style='max-width: 90%')
-            p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') When you find the house of your dreams you can save it to view later
-        .col-sm-4.margin-top
-          .panel
-            h4 Love Images
-            img(src='images/83_1.jpg', style='max-width: 90%')
-            p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') Love and organize images for house hunting or for design inspiration
-        .col-sm-4.margin-top
-          .panel
-            h4 Share with Friends
-            img(src='images/57_1.jpg', style='max-width: 90%')
-            p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') Share and save your collections of houses and images
-  section
-    .container
-      h4.secondary.text-center Featured listings
-      .row
-        .col-xs-12.col-sm-3(ng-repeat='listing in featured')
-          a.panel(ng-href='{{listing.lister_url}}')
-            h4 {{listing.title}}
-            h4.secondary {{ listing.price_formatted }}
-            img.thumbnail(ng-src='{{ listing.img_url }}', style='width: 90%', ng-click='listings.selectListingAndPic(listing, img_url)')
-            p.margin-top {{ listing.summary }}
+search-listings
+frontpage
+.container.hidden-sm.text-center(ng-include="'client/components/tradedoubler/tradedoubler.html'")

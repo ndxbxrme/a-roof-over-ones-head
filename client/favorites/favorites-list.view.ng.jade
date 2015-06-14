@@ -60,7 +60,7 @@
       p You have no favorites yet
   .col-sm-2
     h2(style='margin-top: 26px') Boards
-    .row(ng-repeat='tag in propertyTags')
+    .row(ng-repeat='tag in propertyTags', ng-show='(favorites | filter:{tags:{text:tag.text}}).length>0')
       .col-xs-12
         a.label.label-primary(href='board/p/{{$root.currentUser._id}}/{{tag.text}}') {{ tag.text }}
       .col-xs-12.panel.panel-default(style='padding-top: 6px; padding-bottom: 6px')

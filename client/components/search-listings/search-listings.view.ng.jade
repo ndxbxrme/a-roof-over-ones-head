@@ -1,0 +1,40 @@
+.search-listings.light-bg(ng-show='listings.all().length>0')
+  .container
+    .row
+      .col-sm-6
+        .btn-group(dropdown='', is-open='status.isopen')
+          button.btn.btn-primary.dropdown-toggle.margin-bottom(dropdown-toggle='') 
+            span(ng-show="storage.sort==='price'") Cheapest first&nbsp;
+            span(ng-show="storage.sort==='-price'") Most expensive first&nbsp;
+            span(ng-show="storage.sort==='location_accuracy'") Relevance&nbsp;
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li 
+              a(href='', ng-click="storage.sort='price'") Cheapest first
+            li 
+              a(href='', ng-click="storage.sort='-price'") Most expensive first
+            li 
+              a(href='', ng-click="storage.sort='location_accuracy'") Relevance
+      .col-sm-6
+        input.form-control.margin-bottom(type='text', ng-model='filter', placeholder='Search within results')
+    .col-xs-12.panel.panel-default(ng-repeat="listing in listings.all() | unique:'guid' | inPriceRange:priceRange | filter:filter | orderBy:storage.sort", ng-hide='isHidden(listing)')
+      a(name='{{ listing.guid }}')
+      .col-sm-6
+        h4
+          a(href='', ng-click='listings.selectListingAndImage(listing, null)') {{ listing.title }}
+        h5 {{ listing.summary }}
+          a(ng-href='{{listing.lister_url}}', target='_Blank') Website
+      .col-sm-6.text-right   
+        h4 {{ listing.price_formatted }}
+        .btn-group.pull-right(role='group', ng-hide='isFavorite(listing)')
+          button.btn.btn-default.margin-bottom(ng-click='hide(listing)', ng-show='$root.currentUser', type='button') Hide
+          button.btn.btn-primary.margin-bottom(ng-click='addToFavorites(listing)', ng-show='$root.currentUser', type='button') Add to favorites
+        button.btn.btn-disabled.pull-right.margin-bottom(ng-hide='$root.currentUser', type='button') Sign in to favorite
+        h4.pull-right(ng-show='isFavorite(listing)')
+          a(href='favorites') Favorite
+      .row
+        .col-sm-12(style='clear:both')
+          .listing.col-xs-6.col-sm-4.col-md-3.col-lg-2.text-center(ng-repeat='pic in listing.pics')
+            img.thumbnail(ng-src='{{pic}}', style='height: 12rem; max-width: 100%', onerror="this.style.display='none'", ng-click='listings.selectListingAndImage(listing, pic)')
+          .listing.col-sm-2
+            img.thumbnail(ng-src='{{ listing.img_url }}', ng-hide='listing.pics.length>0' style='width: 100%', ng-click='listings.selectListingAndPic(listing, img_url)')
