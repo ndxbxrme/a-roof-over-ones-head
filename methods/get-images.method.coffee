@@ -37,7 +37,7 @@ Meteor.methods
               pics = []
               for match in m
                 if match.indexOf('http') isnt -1
-                  pics.push match.match(/(href|src|content|"masterUrl")(=|:)"([^"]+)/)[3]
+                  pics.push match.match(/(href|src|content|"masterUrl")(=|:)"([^"]+jpg)/)[3]
               Listings.insert({'guid':guid, pics:pics})
               future['return'] pics
       future.wait()
