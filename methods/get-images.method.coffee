@@ -30,12 +30,14 @@ Meteor.methods
             if not m
               m = data.content.match(/u="image" src="[^"]+"/g)
             if not m
+              m = data.content.match(/"masterUrl":"[^"]+"/g)
+            if not m
               future['return'] data.content
             else
               pics = []
               for match in m
                 if match.indexOf('http') isnt -1
-                  pics.push match.match(/(href|src|content)="([^"]+)/)[2]
+                  pics.push match.match(/(href|src|content|"masterUrl")(=|:)"([^"]+)/)[3]
               Listings.insert({'guid':guid, pics:pics})
               future['return'] pics
       future.wait()
