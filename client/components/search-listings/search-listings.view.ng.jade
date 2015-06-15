@@ -27,7 +27,7 @@
         h5 {{ listing.summary }}
           a(ng-href='{{listing.lister_url}}', target='_Blank') Website
       .col-sm-6.text-right   
-        h4 {{ listing.price_formatted }}
+        h4.font-effect-outline.blue {{ listing.price_formatted }}
         .btn-group.pull-right(role='group', ng-hide='isFavorite(listing)')
           button.btn.btn-default.margin-bottom(ng-click='hide(listing)', ng-show='$root.currentUser', type='button') Hide
           button.btn.btn-primary.margin-bottom(ng-click='addToFavorites(listing)', ng-show='$root.currentUser', type='button') Add to favorites

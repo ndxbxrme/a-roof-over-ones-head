@@ -1,6 +1,6 @@
 .favorites-list.container(ng-show='$root.currentUser._id')
   .col-sm-10
-    h1 Favorites
+    h1.font-effect-outline.blue Favorites
     .search-listings(ng-show='favorites.length > 0')
       .row
         .col-sm-6.margin-bottom
@@ -48,7 +48,7 @@
                   a(href='', ng-show='listing.tags.length>0', ng-click='listing.editingTags = true') Edit tags
                   a(href='', ng-hide='listing.tags.length>0', ng-click='listing.editingTags = true') Add tags
             .col-sm-6.text-right   
-              h4 {{ listing.price_formatted }}
+              h4.font-effect-outline.blue {{ listing.price_formatted }}
               button.btn.btn-primary.pull-right.margin-bottom(ng-click='removeFromFavorites(listing)') Remove from favorites
           .row
             .listing.col-xs-6.col-sm-4.col-md-3.col-lg-2.text-center(ng-repeat='pic in listing.pics')
@@ -59,7 +59,7 @@
     .no-results(ng-hide='favorites.length > 0')
       p You have no favorites yet
   .col-sm-2
-    h2(style='margin-top: 26px') Boards
+    h2.font-effect-outline.blue(style='margin-top: 26px') Boards
     .row(ng-repeat='tag in propertyTags', ng-show='(favorites | filter:{tags:{text:tag.text}}).length>0')
       .col-xs-12
         a.label.label-primary(href='board/p/{{$root.currentUser._id}}/{{tag.text}}') {{ tag.text }}

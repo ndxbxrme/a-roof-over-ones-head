@@ -2,7 +2,7 @@
   .container
     .row
       .col-sm-6 
-        h1.no-margin {{tag}}
+        h1.no-margin.font-effect-outline.blue {{tag}}
       .col-sm-6.text-right(ng-show='isOwner()')
         h4 Sharing Url
         input.text-right.form-control(value='{{url}}board/p/{{userId}}/{{tag}}', style='width: 100%; border: none; padding-right: 0', ng-click='selectAll($event)')
