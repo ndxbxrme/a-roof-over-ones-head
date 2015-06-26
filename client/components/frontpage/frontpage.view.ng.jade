@@ -1,4 +1,4 @@
-.frontpage(ng-hide='listings.all().length>0')
+.frontpage(ng-if='listings.all().length<1')
   section.light-bg
     .container.text-center
       h1 a Roof Over One's Head
@@ -7,19 +7,19 @@
         .col-sm-4.margin-top
           .panel
             h4 Save Favorites
-            img(src='images/59_1.jpg', style='max-width: 90%')
+            img.enhance(src='images/59_1.jpg', style='max-width: 90%')
             p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') When you find the house of your dreams you can save it to view later
         .col-sm-4.margin-top
           .panel
             h4 Love Images
-            img(src='images/83_1.jpg', style='max-width: 90%')
+            img.enhance(src='images/83_1.jpg', style='max-width: 90%')
             p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') Love and organize images for house hunting or for design inspiration
               | 
               span.label.label-warning Coming soon
         .col-sm-4.margin-top
           .panel
             h4 Share with Friends
-            img(src='images/57_1.jpg', style='max-width: 90%')
+            img.enhance(src='images/57_1.jpg', style='max-width: 90%', data-action='zoom')
             p.margin-top(style='max-width: 90%; text-align: left; margin-left: auto; margin-right: auto') Share and save your collections of houses and images
   section
     .container

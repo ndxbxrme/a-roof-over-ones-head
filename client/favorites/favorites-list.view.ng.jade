@@ -52,10 +52,10 @@
               button.btn.btn-primary.pull-right.margin-bottom(ng-click='removeFromFavorites(listing)') Remove from favorites
           .row
             .listing.col-xs-6.col-sm-4.col-md-3.col-lg-2.text-center(ng-repeat='pic in listing.pics')
-              .afkl-lazy-wrapper.afkl-img-ratio-1-1.thumbnail(afkl-lazy-image='{{pic}}', ng-click='selectListingAndImage(listing, pic)')
+              .afkl-lazy-wrapper.afkl-img-ratio-1-1.thumbnail.enhance(afkl-lazy-image='{{pic}}', ng-class='{first:$index===0}')
               //img.thumbnail(ng-src='{{pic}}', style='height: 12rem; max-width: 100%', onerror="this.style.display='none'")
             .listing.col-sm-2
-              img.thumbnail(ng-src='{{ listing.img_url }}', ng-hide='listing.pics.length>0' style='width: 100%')
+              img.thumbnail.enhance(ng-src='{{ listing.img_url }}', ng-if='listing.pics.length<1' style='width: 100%')
     .no-results(ng-hide='favorites.length > 0')
       p You have no favorites yet
   .col-sm-2
