@@ -30,12 +30,10 @@ angular.module 'propertyApp'
               img = document.createElement 'img'
               offset = angular.element(allImages[index]).offset()
               if angular.element(allImages[index]).hasClass('first') or angular.element(allImages[index].parentNode).hasClass('first')
-                console.log 'yowza'
-                $w.scrollTop(offset.top - 200)
+                $window.scrollTo 0, offset.top - 200
               #if (offset.top < $w.scrollTop()) or (offset.top + image.height > $w.scrollTop() + $w.innerHeight())
               #  console.log 'scrollin'
               #  $w.scrollTop(offset.top - 100)
-              console.log offset.top + $t.height(), $w.scrollTop(), $w.innerHeight()
               img.onload = () ->
                 size = 
                   h:parseInt(img.height)
