@@ -40,7 +40,7 @@
       .row
         .col-sm-12(style='clear:both')
           .listing.col-xs-6.col-sm-4.col-md-3.col-lg-2.text-center(ng-repeat='pic in listing.pics')
-            .afkl-lazy-wrapper.afkl-img-ratio-1-1.thumbnail.enhance(afkl-lazy-image='{{pic}}', ng-class='{first:$index===0}')
+            .afkl-lazy-wrapper.afkl-img-ratio-1-1.thumbnail.enhance(afkl-lazy-image='{{pic}}', ng-class='{first:$index===0}', price='{{listing.price_formatted}}', title='{{listing.title}}')
             //img.thumbnail(ng-src='{{pic}}', style='height: 12rem; max-width: 100%', onerror="this.style.display='none'", ng-click='listings.selectListingAndImage(listing, pic)')
           .listing.col-sm-2
             img.thumbnail.enhance.first(ng-src='{{ listing.img_url }}', ng-if='listing.pics.length<1' style='width: 100%', ng-click='listings.selectListingAndPic(listing, img_url)')

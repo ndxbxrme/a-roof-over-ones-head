@@ -7,9 +7,11 @@ angular.module 'propertyApp'
     scope:
       options: '=zoomImages'
     link: (scope, elem, attrs) ->
-      zoom = elem.append '<div class="zoom-bg"><div id="zoom-box"><img src="" id="zoom-img" /><div class="zoom-prev"><span>&lt;</span></div><div class="zoom-next"><span>&gt;</span></div></div></div>'
+      zoom = elem.append '<div class="zoom-bg"><div id="zoom-box"><img src="" id="zoom-img" /><div class="zoom-prev"><span>&lt;</span></div><div class="zoom-next"><span>&gt;</span></div><div id="zoom-price"></div><div id="zoom-title"></div></div></div>'
       zoomImg = angular.element('#zoom-img')
       zoomBox = angular.element('#zoom-box')
+      zoomPrice = angular.element('#zoom-price')
+      zoomTitle = angular.element('#zoom-title')
       elem.css 'min-height':'100%'
       offset = undefined
       initialSize = {};
@@ -38,10 +40,19 @@ angular.module 'propertyApp'
                 size = 
                   h:parseInt(img.height)
                   w:parseInt(img.width)
+                margin = if scope.options then scope.options.margin else 20
+                if size.h > $w[0].innerHeight - margin
+                  size.w = size.w / size.h * ($w[0].innerHeight - margin)
+                  size.h = $w[0].innerHeight - margin
+                if size.w > $w[0].innerWidth - margin
+                  size.h = size.h / size.w * ($w[0].innerWidth - margin)
+                  size.w = $w[0].innerWidth - margin
                 zoomImg[0].src = img.src
                 zoomBox.css
                   height: size.h
                   width: size.w
+                zoomPrice.text angular.element(allImages[index]).attr('price') or angular.element(allImages[index].parentNode).attr('price')
+                zoomTitle.text angular.element(allImages[index]).attr('title') or angular.element(allImages[index].parentNode).attr('title')
               img.src = allImages[index].src
               break          
           #console.log allImages
@@ -58,7 +69,8 @@ angular.module 'propertyApp'
           elem.removeClass 'zoom-open'          
           return
         if not target or target.tagName isnt 'IMG' or not ($t.hasClass('enhance') or angular.element(target.parentNode).hasClass('enhance')) then return
-        console.log 'alright'
+        zoomPrice.text $t.attr('price') or angular.element(target.parentNode).attr('price')
+        zoomTitle.text $t.attr('title') or angular.element(target.parentNode).attr('title')
         event.preventDefault()
         initialSize = 
           h:target.offsetHeight
@@ -70,14 +82,13 @@ angular.module 'propertyApp'
             h:parseInt(img.height)
             w:parseInt(img.width)
           margin = if scope.options then scope.options.margin else 20
-          console.log $w[0].innerHeight - margin
           if size.h > $w[0].innerHeight - margin
             size.w = size.w / size.h * ($w[0].innerHeight - margin)
             size.h = $w[0].innerHeight - margin
-          ###if size.w > ($w[0].innerWidth/2) - margin
-            size.h = size.h / size.w * ($w[0].innerWidth - margin)/2
-            size.w = $w[0].innerWidth/2 - margin
-          ###
+          if size.w > $w[0].innerWidth - margin
+            size.h = size.h / size.w * ($w[0].innerWidth - margin)
+            size.w = $w[0].innerWidth - margin
+          
           zoomImg[0].src = target.src
           zoomBox.css
             top:offset.top - $w.scrollTop() + (initialSize.h / 2)
