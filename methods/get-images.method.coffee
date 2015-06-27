@@ -34,7 +34,7 @@ Meteor.methods
             if not m
               m = data.content.match /class="fancybox" rel="group" href="[^"]+jpg"/g
             if not m
-              m = data.content.match /img src="http://sellsgood.co.uk[^"]+jpg"/g
+              m = data.content.match /img src="http:\/\/sellsgood\.co\.uk[^"]+jpg"/g
             if not m
               future['return'] data.content
             else
