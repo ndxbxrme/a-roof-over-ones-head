@@ -12,27 +12,29 @@ Meteor.methods
         HTTP.get url, (err, data) ->
           propUrl = data.content.match(/url=([^"]+)/)[1]
           HTTP.get propUrl, (err, data) ->
-            m = data.content.match(/href="([^"]+)" target="_Blank">Click for Full Version/g)
+            m = data.content.match /href="([^"]+)" target="_Blank">Click for Full Version/g
             if not m
-              m = data.content.match(/gallery-[0-9]+" href="[^"]+"/g)
+              m = data.content.match /gallery-[0-9]+" href="[^"]+"/g
             if not m
-              m = data.content.match(/data-slide-index="[0-9]+"><img src="[^"]+"/g)
+              m = data.content.match /data-slide-index="[0-9]+"><img src="[^"]+"/g
             if not m
-              m = data.content.match(/galleria"><a href="[^"]+"><img/g)
+              m = data.content.match /galleria"><a href="[^"]+"><img/g
             if not m
-              m = data.content.match(/efefef;"> <img src="[^"]+" width="100/g)
+              m = data.content.match /efefef;"> <img src="[^"]+" width="100/g
             if not m
-              m = data.content.match(/src="[^"]+" data-thumb=/g)
+              m = data.content.match /src="[^"]+" data-thumb=/g
             if not m
-              m = data.content.match(/content=".*listing_images[^"]+jpg"/g)
+              m = data.content.match /content=".*listing_images[^"]+jpg"/g
             if not m
-              m = data.content.match(/src=".*home[^"]+jpg"/g)
+              m = data.content.match /src=".*home[^"]+jpg"/g
             if not m
-              m = data.content.match(/u="image" src="[^"]+"/g)
+              m = data.content.match /u="image" src="[^"]+"/g
             if not m
-              m = data.content.match(/"masterUrl":"[^"]+"/g)
+              m = data.content.match /"masterUrl":"[^"]+"/g
             if not m
-              m = data.content.match(/class="fancybox" rel="group" href="[^"]+jpg"/g)
+              m = data.content.match /class="fancybox" rel="group" href="[^"]+jpg"/g
+            if not m
+              m = data.content.match /img src="http://sellsgood.co.uk[^"]+jpg"/g
             if not m
               future['return'] data.content
             else
